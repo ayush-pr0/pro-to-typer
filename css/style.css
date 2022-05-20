@@ -44,9 +44,42 @@ body {
     word-break: break-all;
 }
 
+.typing-text p span {
+    position: relative;
+}
+
+.typing-text p span.active::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    background: #17a2b8;
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 1;
+    }
+}
+
+.typing-text p span.correct {
+    color: #56964f;
+}
+
+.typing-text p span.incorrect {
+    color: #cb3439;
+    background: #ffc0cb;
+    outline: 1px solid #fff;
+    border-radius: 4px;
+}
+
 .content-box .content {
     display: flex;
-    align-items: ce;
+    align-items: center;
     justify-content: space-between;
     margin-top: 17px;
     padding: 12px 0;
@@ -77,11 +110,14 @@ body {
 }
 
 .result-details li {
+    height: 22px;
     display: flex;
+    align-items: center;
     list-style: none;
 }
 
 .result-details li:not(:first-child) {
+    padding-left: 22px;
     border-left: 1px solid #ccc;
 }
 
@@ -100,5 +136,5 @@ body {
 }
 
 .result-details li b {
-    font-weight: 500;
+    font-weight: 600;
 }
