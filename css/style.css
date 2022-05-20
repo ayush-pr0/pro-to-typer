@@ -1,13 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap";
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: poppins, sans-serif;
 }
 
 body {
     display: flex;
+    flex-direction: column;
+    padding: 0 10px;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
@@ -15,22 +17,44 @@ body {
     background-image: linear-gradient(to left bottom, #ff5770e2, #17a2b8);
 }
 
+header {
+    margin: 20px;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 2.2rem;
+    text-shadow: 0px 2px 3px black;
+}
+
+::selection {
+    color: #fff;
+    background: #17a2b8;
+}
+
 .wrapper {
     width: 770px;
     padding: 35px;
     background: #fff;
     border-radius: 10px;
+    box-shadow: 0 10px 15px #0000000d;
+}
+
+.wrapper .input-field {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
 }
 
 .wrapper .content-box {
     padding: 13px 20px 0;
-    border: 1px solid #ccc;
     border-radius: 10px;
+    border: 1px solid #bfbfbf;
 }
 
 .content-box .typing-text {
-    max-height: 255px;
-    overflow-y: auto;
+    overflow: hidden;
+    max-height: 256px;
 }
 
 .typing-text::-webkit-scrollbar {
@@ -48,14 +72,30 @@ body {
     position: relative;
 }
 
+.typing-text p span.correct {
+    color: #56964f;
+}
+
+.typing-text p span.incorrect {
+    color: #cb3439;
+    outline: 1px solid #fff;
+    background: pink;
+    border-radius: 4px;
+}
+
+.typing-text p span.active {
+    color: #17a2b8;
+}
+
 .typing-text p span.active::before {
-    content: "";
     position: absolute;
+    content: "";
     height: 2px;
     width: 100%;
-    opacity: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
+    opacity: 0;
+    border-radius: 5px;
     background: #17a2b8;
     animation: blink 1s ease-in-out infinite;
 }
@@ -66,59 +106,51 @@ body {
     }
 }
 
-.typing-text p span.correct {
-    color: #56964f;
-}
-
-.typing-text p span.incorrect {
-    color: #cb3439;
-    background: #ffc0cb;
-    outline: 1px solid #fff;
-    border-radius: 4px;
-}
-
 .content-box .content {
+    margin-top: 17px;
     display: flex;
+    padding: 12px 0;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    margin-top: 17px;
-    padding: 12px 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #bfbfbf;
 }
 
 .content button {
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
     outline: none;
+    border: none;
     width: 105px;
-    padding: 8px 0;
     color: #fff;
+    padding: 8px 0;
+    font-size: 16px;
     cursor: pointer;
+    border-radius: 5px;
     background: #17a2b8;
     transition: transform 0.3s ease;
 }
 
 .content button:active {
-    transform: scale(0.9);
+    transform: scale(0.97);
 }
-
 .content .result-details {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
     width: calc(100% - 140px);
+    justify-content: space-between;
 }
 
 .result-details li {
-    height: 22px;
     display: flex;
-    align-items: center;
+    height: 20px;
     list-style: none;
+    position: relative;
+    align-items: center;
 }
 
 .result-details li:not(:first-child) {
     padding-left: 22px;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #bfbfbf;
 }
 
 .result-details li p {
@@ -127,14 +159,62 @@ body {
 
 .result-details li span {
     display: block;
-    font-size: 18px;
+    font-size: 20px;
     margin-left: 10px;
 }
 
-.result-details li:not(:first-child) span {
+li span b {
     font-weight: 500;
 }
 
-.result-details li b {
-    font-weight: 600;
+li:not(:first-child) span {
+    font-weight: 500;
+}
+
+@media (max-width: 745px) {
+    .wrapper {
+        padding: 20px;
+    }
+    .content-box .content {
+        padding: 20px 0;
+    }
+    .content-box .typing-text {
+        max-height: 100%;
+    }
+    .typing-text p {
+        font-size: 19px;
+        text-align: left;
+    }
+    .content button {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px 0;
+        margin-top: 20px;
+    }
+    .content .result-details {
+        width: 100%;
+    }
+    .result-details li:not(:first-child) {
+        border-left: 0;
+        padding: 0;
+    }
+    .result-details li p,
+    .result-details li span {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 518px) {
+    .wrapper .content-box {
+        padding: 10px 15px 0;
+    }
+    .typing-text p {
+        font-size: 18px;
+    }
+    .result-details li {
+        margin-bottom: 10px;
+    }
+    .content button {
+        margin-top: 10px;
+    }
 }
